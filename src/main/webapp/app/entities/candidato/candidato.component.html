@@ -1,0 +1,67 @@
+<div>
+    <h2 id="page-heading">
+        <span>Candidatoes</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-candidato" [routerLink]="['/candidato/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Candidato
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="candidatoes">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="nome"><span>Nome</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="foto"><span>Foto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="cargo.nome"><span>Cargo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let candidato of candidatoes ;trackBy: trackId">
+                <td><a [routerLink]="['/candidato', candidato.id, 'view' ]">{{candidato.id}}</a></td>
+                <td>{{candidato.nome}}</td>
+                <td>
+                    <a *ngIf="candidato.foto" (click)="openFile(candidato.fotoContentType, candidato.foto)">
+                        <img [src]="'data:' + candidato.fotoContentType + ';base64,' + candidato.foto" style="max-height: 30px;" alt="candidato image"/>
+                    </a>
+                    <span *ngIf="candidato.foto">{{candidato.fotoContentType}}, {{byteSize(candidato.foto)}}</span>
+                </td>
+                <td>
+                    <div *ngIf="candidato.cargo">
+                        <a [routerLink]="['../cargo', candidato.cargo?.id, 'view' ]" >{{candidato.cargo?.nome}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/candidato', candidato.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/candidato', candidato.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'candidato/'+ candidato.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

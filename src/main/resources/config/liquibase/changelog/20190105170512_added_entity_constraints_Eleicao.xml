@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Eleicao.
+    -->
+    <changeSet id="20190105170512-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="eleicaos_id"
+                                 baseTableName="eleicao_cargo_id"
+                                 constraintName="fk_eleicao_cargo_id_eleicaos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="eleicao"/>
+        <addForeignKeyConstraint baseColumnNames="cargo_ids_id"
+                                 baseTableName="eleicao_cargo_id"
+                                 constraintName="fk_eleicao_cargo_id_cargo_ids_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cargo"/>
+        
+    </changeSet>
+</databaseChangeLog>

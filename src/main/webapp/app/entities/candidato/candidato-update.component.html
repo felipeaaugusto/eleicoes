@@ -1,0 +1,71 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-candidato-heading">Create or edit a Candidato</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!candidato.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="candidato.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_nome">Nome</label>
+                    <input type="text" class="form-control" name="nome" id="field_nome"
+                        [(ngModel)]="candidato.nome" required/>
+                    <div [hidden]="!(editForm.controls.nome?.dirty && editForm.controls.nome?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.nome?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_foto">Foto</label>
+                    <div>
+                        <img [src]="'data:' + candidato.fotoContentType + ';base64,' + candidato.foto" style="max-height: 100px;" *ngIf="candidato.foto" alt="candidato image"/>
+                        <div *ngIf="candidato.foto" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{candidato.fotoContentType}}, {{byteSize(candidato.foto)}}</span>
+                            <button type="button" (click)="clearInputImage('foto', 'fotoContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_foto" (change)="setFileData($event, candidato, 'foto', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="foto" id="field_foto"
+                        [(ngModel)]="candidato.foto" required/>
+                    <input type="hidden" class="form-control" name="fotoContentType" id="field_fotoContentType"
+                        [(ngModel)]="candidato.fotoContentType" />
+                    <div [hidden]="!(editForm.controls.foto?.dirty && editForm.controls.foto?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.foto?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_cargo">Cargo</label>
+                    <select class="form-control" id="field_cargo" name="cargo" [(ngModel)]="candidato.cargo"  required>
+                        <option *ngIf="!editForm.value.cargo" [ngValue]="null" selected></option>
+                        <option [ngValue]="cargoOption.id === candidato.cargo?.id ? candidato.cargo : cargoOption" *ngFor="let cargoOption of cargos; trackBy: trackCargoById">{{cargoOption.nome}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.cargo?.dirty && editForm.controls.cargo?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.cargo?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "cargo_id",
+            "otherEntityName": "cargo",
+            "relationshipType": "many-to-many",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "nome",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "eleicao_id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nome",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dataInicio",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dataFim",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20190105170512",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "eleicao",
+    "jpaMetamodelFiltering": false,
+    "pagination": "infinite-scroll"
+}

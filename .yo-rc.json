@@ -27,6 +27,7 @@
         "testFrameworks": [],
         "jhiPrefix": "jhi",
         "otherModules": [],
-        "enableTranslation": false
+        "enableTranslation": false,
+        "enableHibernateCache": false
     }
 }

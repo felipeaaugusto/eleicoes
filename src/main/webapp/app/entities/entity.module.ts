@@ -1,10 +1,16 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+import { EleicoesCargoModule } from './cargo/cargo.module';
+import { EleicoesCandidatoModule } from './candidato/candidato.module';
+import { EleicoesEleicaoModule } from './eleicao/eleicao.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
     // prettier-ignore
     imports: [
+        EleicoesCargoModule,
+        EleicoesCandidatoModule,
+        EleicoesEleicaoModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],
