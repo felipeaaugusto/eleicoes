@@ -25,8 +25,8 @@
             <tr *ngFor="let eleicao of eleicaos ;trackBy: trackId">
                 <td><a [routerLink]="['/eleicao', eleicao.id, 'view' ]">{{eleicao.id}}</a></td>
                 <td>{{eleicao.nome}}</td>
-                <td>{{eleicao.dataInicio | date:'mediumDate'}}</td>
-                <td>{{eleicao.dataFim | date:'mediumDate'}}</td>
+                <td>{{eleicao.dataInicio | date:'dd/MM/yyyy'}}</td>
+                <td>{{eleicao.dataFim | date:'dd/MM/yyyy'}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
