@@ -10,6 +10,7 @@ import { EleicaoComponent } from './eleicao.component';
 import { EleicaoDetailComponent } from './eleicao-detail.component';
 import { EleicaoUpdateComponent } from './eleicao-update.component';
 import { EleicaoDeletePopupComponent } from './eleicao-delete-dialog.component';
+import { EleicaoRegisterVoteComponent } from './eleicao-register-vote.component';
 import { IEleicao } from 'app/shared/model/eleicao.model';
 
 @Injectable({ providedIn: 'root' })
@@ -70,6 +71,18 @@ export const eleicaoRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
+            pageTitle: 'Eleições'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'eleicao/:id/vote',
+        component: EleicaoRegisterVoteComponent,
+        resolve: {
+            eleicao: EleicaoResolve
+        },
+        data: {
+            authorities: [],
             pageTitle: 'Eleições'
         },
         canActivate: [UserRouteAccessService]

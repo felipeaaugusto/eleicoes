@@ -8,6 +8,7 @@ import {
     EleicaoUpdateComponent,
     EleicaoDeletePopupComponent,
     EleicaoDeleteDialogComponent,
+    EleicaoRegisterVoteComponent,
     eleicaoRoute,
     eleicaoPopupRoute
 } from './';
@@ -21,10 +22,17 @@ const ENTITY_STATES = [...eleicaoRoute, ...eleicaoPopupRoute];
         EleicaoDetailComponent,
         EleicaoUpdateComponent,
         EleicaoDeleteDialogComponent,
-        EleicaoDeletePopupComponent
+        EleicaoDeletePopupComponent,
+        EleicaoRegisterVoteComponent
     ],
     exports: [EleicaoComponent],
-    entryComponents: [EleicaoComponent, EleicaoUpdateComponent, EleicaoDeleteDialogComponent, EleicaoDeletePopupComponent],
+    entryComponents: [
+        EleicaoComponent,
+        EleicaoUpdateComponent,
+        EleicaoDeleteDialogComponent,
+        EleicaoDeletePopupComponent,
+        EleicaoRegisterVoteComponent
+    ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EleicoesEleicaoModule {}

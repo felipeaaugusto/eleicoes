@@ -1,0 +1,91 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="eleicao">
+            <h2><span>Votação Eleição</span> {{eleicao.nome}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Nome</span></dt>
+                <dd>
+                    <span>{{eleicao.nome}}</span>
+                </dd>
+                <dt><span>Data Inicio</span></dt>
+                <dd>
+                    <span>{{eleicao.dataInicio | date:'dd/MM/yyyy'}}</span>
+                </dd>
+                <dt><span>Data Fim</span></dt>
+                <dd>
+                    <span>{{eleicao.dataFim | date:'dd/MM/yyyy'}}</span>
+                </dd>
+                <dt><span>Cargos</span></dt>
+                <dd>
+                    <span *ngFor="let cargo_id of eleicao.cargo_ids; let last = last">
+                        {{cargo_id.nome}}{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+            <hr>
+
+            <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                <h2 id="jhi-eleicao-heading">Registrar votos</h2>
+                <div>
+                    <jhi-alert-error></jhi-alert-error>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_cpf">Cpf</label>
+                        <input type="text" class="form-control" name="cpf" id="field_cpf"
+                            required minlength="11" maxlength="11"/>
+                        <div [hidden]="!(editForm.controls.cpf?.dirty && editForm.controls.cpf?.invalid)">
+                            <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.cpf?.errors?.required">
+                            This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.cpf?.errors?.minlength">
+                            This field is required to be at least 11 characters.
+                            </small>
+                            <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.cpf?.errors?.maxlength">
+                            This field cannot be longer than 11 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_nome">Nome</label>
+                        <input type="text" class="form-control" name="nome" id="field_nome"
+                            required/>
+                        <div [hidden]="!(editForm.controls.nome?.dirty && editForm.controls.nome?.invalid)">
+                            <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.nome?.errors?.required">
+                            This field is required.
+                            </small>
+                        </div>
+                    </div>
+                    <h6><b>Cargos</b></h6>
+                    <div *ngFor="let cargo_id of eleicao.cargo_ids; let last = last" class="form-group">
+                        <label class="form-control-label" for="field_cargo">{{cargo_id.nome}}</label>
+                        <select class="form-control" id="field_cargo" name="cargo" required>
+                            <option *ngIf="!editForm.value.cargo" [ngValue]="null" selected></option>
+                        </select>
+                        <br>
+                        <button type="submit"
+                                (click)="previousState()"
+                                class="btn btn-primary">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span> Votar para {{cargo_id.nome}}</span>
+                        </button>
+                    </div>
+                    <div [hidden]="!(editForm.controls.cargo?.dirty && editForm.controls.cargo?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.cargo?.errors?.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+            </form>
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+        </div>
+    </div>
+</div>
