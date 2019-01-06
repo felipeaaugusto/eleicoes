@@ -45,7 +45,7 @@ export const eleicaoRoute: Routes = [
             eleicao: EleicaoResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: [],
             pageTitle: 'Eleições'
         },
         canActivate: [UserRouteAccessService]
