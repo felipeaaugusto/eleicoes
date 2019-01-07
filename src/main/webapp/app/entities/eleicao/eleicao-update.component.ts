@@ -17,7 +17,6 @@ import { CargoService } from 'app/entities/cargo';
 export class EleicaoUpdateComponent implements OnInit {
     eleicao: IEleicao;
     isSaving: boolean;
-
     cargos: ICargo[];
     dataInicioDp: any;
     dataFimDp: any;

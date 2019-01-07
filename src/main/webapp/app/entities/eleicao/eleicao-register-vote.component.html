@@ -62,9 +62,15 @@
                     </div>
                     <h6><b>Cargos</b></h6>
                     <div *ngFor="let cargo_id of eleicao.cargo_ids; let last = last" class="form-group">
-                        <label class="form-control-label" for="field_cargo">{{cargo_id.nome}}</label>
-                        <select class="form-control" id="field_cargo" name="cargo" required>
+                        <label class="form-control-label" for="field_candidato">{{cargo_id.nome}}</label>
+                        <select class="form-control" id="field_candidato" name="candidato" required>
                             <option *ngIf="!editForm.value.cargo" [ngValue]="null" selected></option>
+                            <option [ngValue]="candidatoOption.cargo.id == cargo_id.id ? candidatoOption : candidatoOption" 
+                                *ngFor="let candidatoOption of candidatos; trackBy: trackCandidatoById"
+                                [sdDisabled]="candidatoOption.cargo.id != cargo_id.id"
+                            >
+                            {{candidatoOption.nome}} {{candidatoOption.cargo.id}} {{cargo_id.id}}
+                            </option>
                         </select>
                         <br>
                         <button type="submit"
