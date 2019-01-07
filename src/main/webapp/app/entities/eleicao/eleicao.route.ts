@@ -12,6 +12,9 @@ import { EleicaoUpdateComponent } from './eleicao-update.component';
 import { EleicaoDeletePopupComponent } from './eleicao-delete-dialog.component';
 import { EleicaoRegisterVoteComponent } from './eleicao-register-vote.component';
 import { IEleicao } from 'app/shared/model/eleicao.model';
+import { Voto } from 'app/shared/model/voto.model';
+import { VotoService } from 'app/entities/voto/voto.service';
+import { IVoto } from 'app/shared/model/voto.model';
 
 @Injectable({ providedIn: 'root' })
 export class EleicaoResolve implements Resolve<IEleicao> {
@@ -26,6 +29,15 @@ export class EleicaoResolve implements Resolve<IEleicao> {
             );
         }
         return of(new Eleicao());
+    }
+}
+
+@Injectable({ providedIn: 'root' })
+export class VotoResolve implements Resolve<IVoto> {
+    constructor(private service: VotoService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Voto> {
+        return of(new Voto());
     }
 }
 
@@ -79,7 +91,8 @@ export const eleicaoRoute: Routes = [
         path: 'eleicao/:id/vote',
         component: EleicaoRegisterVoteComponent,
         resolve: {
-            eleicao: EleicaoResolve
+            eleicao: EleicaoResolve,
+            voto: VotoResolve
         },
         data: {
             authorities: [],

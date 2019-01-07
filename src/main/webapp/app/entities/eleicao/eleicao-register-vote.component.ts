@@ -16,18 +16,24 @@ import { VotoService } from 'app/entities/voto/voto.service';
 })
 export class EleicaoRegisterVoteComponent implements OnInit {
     eleicao: IEleicao;
+    isSaving: boolean;
     voto: IVoto;
     candidatos: ICandidato[];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected activatedRoute: ActivatedRoute,
+        protected votoService: VotoService,
         protected candidatoService: CandidatoService
     ) {}
 
     ngOnInit() {
+        this.isSaving = false;
         this.activatedRoute.data.subscribe(({ eleicao }) => {
             this.eleicao = eleicao;
+        });
+        this.activatedRoute.data.subscribe(({ voto }) => {
+            this.voto = voto;
         });
         this.candidatoService.query().subscribe(
             (res: HttpResponse<ICandidato[]>) => {
@@ -35,6 +41,33 @@ export class EleicaoRegisterVoteComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+    }
+
+    save(cargo, candidato) {
+        this.isSaving = true;
+        if (this.voto.id !== undefined) {
+            delete this.voto.id;
+        }
+        console.log(cargo);
+        console.log(candidato);
+        this.voto.eleicao = this.eleicao;
+        this.voto.cargo = cargo;
+        this.voto.candidato = candidato;
+        console.log(this.voto);
+        this.subscribeToSaveResponse(this.votoService.create(this.voto));
+    }
+
+    protected subscribeToSaveResponse(result: Observable<HttpResponse<IVoto>>) {
+        result.subscribe((res: HttpResponse<IVoto>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    protected onSaveSuccess() {
+        this.isSaving = false;
+        this.previousState();
+    }
+
+    protected onSaveError() {
+        this.isSaving = false;
     }
 
     protected onError(errorMessage: string) {
@@ -46,7 +79,11 @@ export class EleicaoRegisterVoteComponent implements OnInit {
     }
 
     getCandidatosByCargoId(id: number) {
-        return this.candidatos.filter(candidato => candidato.cargo.id === id);
+        let candidatos = [];
+        if (this.candidatos !== undefined) {
+            candidatos = this.candidatos.filter(candidato => candidato.cargo.id === id);
+        }
+        return candidatos;
     }
 
     previousState() {
