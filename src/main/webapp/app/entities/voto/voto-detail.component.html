@@ -13,6 +13,28 @@
                 <dd>
                     <span>{{voto.nome}}</span>
                 </dd>
+                <dt><span>Protocolo</span></dt>
+                <dd>
+                    <span>{{voto.protocolo}}</span>
+                </dd>
+                <dt><span>Cargo</span></dt>
+                <dd>
+                    <div *ngIf="voto.cargo">
+                        <a [routerLink]="['/cargo', voto.cargo?.id, 'view']">{{voto.cargo?.nome}}</a>
+                    </div>
+                </dd>
+                <dt><span>Candidato</span></dt>
+                <dd>
+                    <div *ngIf="voto.candidato">
+                        <a [routerLink]="['/candidato', voto.candidato?.id, 'view']">{{voto.candidato?.nome}}</a>
+                    </div>
+                </dd>
+                <dt><span>Eleicao</span></dt>
+                <dd>
+                    <div *ngIf="voto.eleicao">
+                        <a [routerLink]="['/eleicao', voto.eleicao?.id, 'view']">{{voto.eleicao?.nome}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

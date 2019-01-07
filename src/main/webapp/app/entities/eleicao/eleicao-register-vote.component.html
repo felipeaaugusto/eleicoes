@@ -31,7 +31,7 @@
                 <div>
                     <jhi-alert-error></jhi-alert-error>
                     <div class="form-group">
-                        <label class="form-control-label" for="field_cpf">Cpf</label>
+                        <label class="form-control-label" for="field_cpf">CPF</label>
                         <input type="text" class="form-control" name="cpf" id="field_cpf"
                             required minlength="11" maxlength="11"/>
                         <div [hidden]="!(editForm.controls.cpf?.dirty && editForm.controls.cpf?.invalid)">
@@ -66,10 +66,9 @@
                         <select class="form-control" id="field_candidato" name="candidato" required>
                             <option *ngIf="!editForm.value.cargo" [ngValue]="null" selected></option>
                             <option [ngValue]="candidatoOption.cargo.id == cargo_id.id ? candidatoOption : candidatoOption" 
-                                *ngFor="let candidatoOption of candidatos; trackBy: trackCandidatoById"
-                                [sdDisabled]="candidatoOption.cargo.id != cargo_id.id"
+                                *ngFor="let candidatoOption of getCandidatosByCargoId(cargo_id.id); trackBy: trackCandidatoById"
                             >
-                            {{candidatoOption.nome}} {{candidatoOption.cargo.id}} {{cargo_id.id}}
+                            {{candidatoOption.nome}}
                             </option>
                         </select>
                         <br>

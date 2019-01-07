@@ -17,6 +17,10 @@
             <th><span>ID</span></th>
             <th><span>Cpf</span></th>
             <th><span>Nome</span></th>
+            <th><span>Protocolo</span></th>
+            <th><span>Cargo</span></th>
+            <th><span>Candidato</span></th>
+            <th><span>Eleicao</span></th>
             <th></th>
             </tr>
             </thead>
@@ -25,6 +29,22 @@
                 <td><a [routerLink]="['/voto', voto.id, 'view' ]">{{voto.id}}</a></td>
                 <td>{{voto.cpf}}</td>
                 <td>{{voto.nome}}</td>
+                <td>{{voto.protocolo}}</td>
+                <td>
+                    <div *ngIf="voto.cargo">
+                        <a [routerLink]="['../cargo', voto.cargo?.id, 'view' ]" >{{voto.cargo?.nome}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="voto.candidato">
+                        <a [routerLink]="['../candidato', voto.candidato?.id, 'view' ]" >{{voto.candidato?.nome}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="voto.eleicao">
+                        <a [routerLink]="['../eleicao', voto.eleicao?.id, 'view' ]" >{{voto.eleicao?.nome}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

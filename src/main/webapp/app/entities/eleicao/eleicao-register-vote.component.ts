@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
 
 import { IEleicao } from 'app/shared/model/eleicao.model';
 import { ICandidato } from 'app/shared/model/candidato.model';
 import { CandidatoService } from 'app/entities/candidato';
+import { IVoto } from 'app/shared/model/voto.model';
+import { VotoService } from 'app/entities/voto/voto.service';
 
 @Component({
     selector: 'jhi-eleicao-register-vote',
@@ -13,6 +16,7 @@ import { CandidatoService } from 'app/entities/candidato';
 })
 export class EleicaoRegisterVoteComponent implements OnInit {
     eleicao: IEleicao;
+    voto: IVoto;
     candidatos: ICandidato[];
 
     constructor(
@@ -39,6 +43,10 @@ export class EleicaoRegisterVoteComponent implements OnInit {
 
     trackCandidatoById(index: number, item: ICandidato) {
         return item.id;
+    }
+
+    getCandidatosByCargoId(id: number) {
+        return this.candidatos.filter(candidato => candidato.cargo.id === id);
     }
 
     previousState() {

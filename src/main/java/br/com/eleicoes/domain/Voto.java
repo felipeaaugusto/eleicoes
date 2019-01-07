@@ -1,5 +1,6 @@
 package br.com.eleicoes.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -29,6 +30,26 @@ public class Voto implements Serializable {
     @NotNull
     @Column(name = "nome", nullable = false)
     private String nome;
+
+    @NotNull
+    @Size(min = 16, max = 16)
+    @Column(name = "protocolo", length = 16, nullable = false)
+    private String protocolo;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("")
+    private Cargo cargo;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("")
+    private Candidato candidato;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("")
+    private Eleicao eleicao;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -64,6 +85,58 @@ public class Voto implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public String getProtocolo() {
+        return protocolo;
+    }
+
+    public Voto protocolo(String protocolo) {
+        this.protocolo = protocolo;
+        return this;
+    }
+
+    public void setProtocolo(String protocolo) {
+        this.protocolo = protocolo;
+    }
+
+    public Cargo getCargo() {
+        return cargo;
+    }
+
+    public Voto cargo(Cargo cargo) {
+        this.cargo = cargo;
+        return this;
+    }
+
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
+    }
+
+    public Candidato getCandidato() {
+        return candidato;
+    }
+
+    public Voto candidato(Candidato candidato) {
+        this.candidato = candidato;
+        return this;
+    }
+
+    public void setCandidato(Candidato candidato) {
+        this.candidato = candidato;
+    }
+
+    public Eleicao getEleicao() {
+        return eleicao;
+    }
+
+    public Voto eleicao(Eleicao eleicao) {
+        this.eleicao = eleicao;
+        return this;
+    }
+
+    public void setEleicao(Eleicao eleicao) {
+        this.eleicao = eleicao;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -92,6 +165,7 @@ public class Voto implements Serializable {
             "id=" + getId() +
             ", cpf='" + getCpf() + "'" +
             ", nome='" + getNome() + "'" +
+            ", protocolo='" + getProtocolo() + "'" +
             "}";
     }
 }

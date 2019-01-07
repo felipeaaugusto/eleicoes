@@ -3,6 +3,9 @@ package br.com.eleicoes.web.rest;
 import br.com.eleicoes.EleicoesApp;
 
 import br.com.eleicoes.domain.Voto;
+import br.com.eleicoes.domain.Cargo;
+import br.com.eleicoes.domain.Candidato;
+import br.com.eleicoes.domain.Eleicao;
 import br.com.eleicoes.repository.VotoRepository;
 import br.com.eleicoes.web.rest.errors.ExceptionTranslator;
 
@@ -45,6 +48,9 @@ public class VotoResourceIntTest {
 
     private static final String DEFAULT_NOME = "AAAAAAAAAA";
     private static final String UPDATED_NOME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PROTOCOLO = "AAAAAAAAAAAAAAAA";
+    private static final String UPDATED_PROTOCOLO = "BBBBBBBBBBBBBBBB";
 
     @Autowired
     private VotoRepository votoRepository;
@@ -89,7 +95,23 @@ public class VotoResourceIntTest {
     public static Voto createEntity(EntityManager em) {
         Voto voto = new Voto()
             .cpf(DEFAULT_CPF)
-            .nome(DEFAULT_NOME);
+            .nome(DEFAULT_NOME)
+            .protocolo(DEFAULT_PROTOCOLO);
+        // Add required entity
+        Cargo cargo = CargoResourceIntTest.createEntity(em);
+        em.persist(cargo);
+        em.flush();
+        voto.setCargo(cargo);
+        // Add required entity
+        Candidato candidato = CandidatoResourceIntTest.createEntity(em);
+        em.persist(candidato);
+        em.flush();
+        voto.setCandidato(candidato);
+        // Add required entity
+        Eleicao eleicao = EleicaoResourceIntTest.createEntity(em);
+        em.persist(eleicao);
+        em.flush();
+        voto.setEleicao(eleicao);
         return voto;
     }
 
@@ -115,6 +137,7 @@ public class VotoResourceIntTest {
         Voto testVoto = votoList.get(votoList.size() - 1);
         assertThat(testVoto.getCpf()).isEqualTo(DEFAULT_CPF);
         assertThat(testVoto.getNome()).isEqualTo(DEFAULT_NOME);
+        assertThat(testVoto.getProtocolo()).isEqualTo(DEFAULT_PROTOCOLO);
     }
 
     @Test
@@ -174,6 +197,24 @@ public class VotoResourceIntTest {
 
     @Test
     @Transactional
+    public void checkProtocoloIsRequired() throws Exception {
+        int databaseSizeBeforeTest = votoRepository.findAll().size();
+        // set the field null
+        voto.setProtocolo(null);
+
+        // Create the Voto, which fails.
+
+        restVotoMockMvc.perform(post("/api/votos")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(voto)))
+            .andExpect(status().isBadRequest());
+
+        List<Voto> votoList = votoRepository.findAll();
+        assertThat(votoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllVotos() throws Exception {
         // Initialize the database
         votoRepository.saveAndFlush(voto);
@@ -184,7 +225,8 @@ public class VotoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(voto.getId().intValue())))
             .andExpect(jsonPath("$.[*].cpf").value(hasItem(DEFAULT_CPF.toString())))
-            .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME.toString())));
+            .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME.toString())))
+            .andExpect(jsonPath("$.[*].protocolo").value(hasItem(DEFAULT_PROTOCOLO.toString())));
     }
     
     @Test
@@ -199,7 +241,8 @@ public class VotoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(voto.getId().intValue()))
             .andExpect(jsonPath("$.cpf").value(DEFAULT_CPF.toString()))
-            .andExpect(jsonPath("$.nome").value(DEFAULT_NOME.toString()));
+            .andExpect(jsonPath("$.nome").value(DEFAULT_NOME.toString()))
+            .andExpect(jsonPath("$.protocolo").value(DEFAULT_PROTOCOLO.toString()));
     }
 
     @Test
@@ -224,7 +267,8 @@ public class VotoResourceIntTest {
         em.detach(updatedVoto);
         updatedVoto
             .cpf(UPDATED_CPF)
-            .nome(UPDATED_NOME);
+            .nome(UPDATED_NOME)
+            .protocolo(UPDATED_PROTOCOLO);
 
         restVotoMockMvc.perform(put("/api/votos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -237,6 +281,7 @@ public class VotoResourceIntTest {
         Voto testVoto = votoList.get(votoList.size() - 1);
         assertThat(testVoto.getCpf()).isEqualTo(UPDATED_CPF);
         assertThat(testVoto.getNome()).isEqualTo(UPDATED_NOME);
+        assertThat(testVoto.getProtocolo()).isEqualTo(UPDATED_PROTOCOLO);
     }
 
     @Test

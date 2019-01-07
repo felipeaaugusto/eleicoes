@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(VotoService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new Voto(0, 'AAAAAAA', 'AAAAAAA');
+            elemDefault = new Voto(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -56,7 +56,8 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         cpf: 'BBBBBB',
-                        nome: 'BBBBBB'
+                        nome: 'BBBBBB',
+                        protocolo: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -74,7 +75,8 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         cpf: 'BBBBBB',
-                        nome: 'BBBBBB'
+                        nome: 'BBBBBB',
+                        protocolo: 'BBBBBB'
                     },
                     elemDefault
                 );
