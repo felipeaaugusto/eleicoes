@@ -105,7 +105,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/test/**")
             .antMatchers("/api/candidatoes")
             .antMatchers("/api/eleicaos")
-            .antMatchers("/api/eleicaos/**");
+            .antMatchers("/api/eleicaos/**")
+            .antMatchers("/api/votos");
     }
 
     @Override

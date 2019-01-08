@@ -81,8 +81,8 @@
                     </div>
                     <h6><b>Cargos</b></h6>
                     <div *ngFor="let cargo of eleicao.cargo_ids; let last = last" class="form-group">
-                        <label class="form-control-label" for="field_candidato">{{cargo.nome}}</label>
-                        <select class="form-control" id="field_candidato" name="candidato">
+                        <label class="form-control-label" for="field_candidato_{{cargo.id}}">{{cargo.nome}}</label>
+                        <select class="form-control" id="field_candidato_{{cargo.id}}" [(ngModel)]="cargo.candidato" name="candidato">
                             <option *ngIf="!editForm.value.cargo" [ngValue]="null" selected></option>
                             <option [ngValue]="candidatoOption.cargo.id == cargo.id ? candidatoOption : candidatoOption" 
                                 *ngFor="let candidatoOption of getCandidatosByCargoId(cargo.id); trackBy: trackCandidatoById"
@@ -91,8 +91,8 @@
                             </option>
                         </select>
                         <br>
-                        <button type="submit"
-                                (click)="save(cargo, candidatoOption)"
+                        <button type="button"
+                                (click)="save(cargo)"
                                 class="btn btn-primary">
                             <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span> Votar para {{cargo.nome}}</span>
                         </button>

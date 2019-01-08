@@ -9,6 +9,7 @@ import { ICandidato } from 'app/shared/model/candidato.model';
 import { CandidatoService } from 'app/entities/candidato';
 import { IVoto } from 'app/shared/model/voto.model';
 import { VotoService } from 'app/entities/voto/voto.service';
+import { ICargo } from 'app/shared/model/cargo.model';
 
 @Component({
     selector: 'jhi-eleicao-register-vote',
@@ -43,17 +44,14 @@ export class EleicaoRegisterVoteComponent implements OnInit {
         );
     }
 
-    save(cargo, candidato) {
+    save(cargo) {
         this.isSaving = true;
         if (this.voto.id !== undefined) {
             delete this.voto.id;
         }
-        console.log(cargo);
-        console.log(candidato);
         this.voto.eleicao = this.eleicao;
         this.voto.cargo = cargo;
-        this.voto.candidato = candidato;
-        console.log(this.voto);
+        this.voto.candidato = cargo.candidato;
         this.subscribeToSaveResponse(this.votoService.create(this.voto));
     }
 
@@ -63,7 +61,6 @@ export class EleicaoRegisterVoteComponent implements OnInit {
 
     protected onSaveSuccess() {
         this.isSaving = false;
-        this.previousState();
     }
 
     protected onSaveError() {

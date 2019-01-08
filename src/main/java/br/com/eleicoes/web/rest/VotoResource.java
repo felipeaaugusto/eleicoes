@@ -49,6 +49,12 @@ public class VotoResource {
         if (voto.getId() != null) {
             throw new BadRequestAlertException("A new voto cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        List<Voto> votos = votoRepository.findAll();
+        for (Voto elem: votos){
+            if (elem.getEleicao().getId().equals(voto.getEleicao().getId()) && elem.getCpf().equals(voto.getCpf()) && elem.getCargo().getId().equals(voto.getCargo().getId())) {
+                throw new BadRequestAlertException("Este CPF " + voto.getCpf() + " já votou para " + voto.getCargo().getNome() + " na eleição " + voto.getEleicao().getNome(), ENTITY_NAME, "idexists");
+            }
+        }
         Voto result = votoRepository.save(voto);
         return ResponseEntity.created(new URI("/api/votos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
