@@ -9,7 +9,6 @@ import { ICandidato } from 'app/shared/model/candidato.model';
 import { CandidatoService } from 'app/entities/candidato';
 import { IVoto } from 'app/shared/model/voto.model';
 import { VotoService } from 'app/entities/voto/voto.service';
-import { ICargo } from 'app/shared/model/cargo.model';
 
 @Component({
     selector: 'jhi-eleicao-register-vote',

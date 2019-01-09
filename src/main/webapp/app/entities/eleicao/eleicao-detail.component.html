@@ -20,7 +20,12 @@
                 <dt><span>Cargos</span></dt>
                 <dd>
                     <span *ngFor="let cargo_id of eleicao.cargo_ids; let last = last">
-                        <a [routerLink]="['/cargo', cargo_id?.id, 'view' ]">{{cargo_id.nome}}</a>{{last ? '' : ', '}}
+                        <span *ngIf="isAuthenticated()">
+                            <a [routerLink]="['/cargo', cargo_id?.id, 'view' ]">{{cargo_id.nome}}</a>{{last ? '' : ', '}}
+                        </span>
+                        <span *ngIf="!isAuthenticated()">
+                            {{cargo_id.nome}}{{last ? '' : ', '}}
+                        </span>
                     </span>
                 </dd>
             </dl>
@@ -31,11 +36,16 @@
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
             </button>
 
-            <button type="button"
+            <button *ngIf="isAuthenticated()" type="button"
                     [routerLink]="['/eleicao', eleicao.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
             </button>
+            <br><br>
+            <h2><span>Resultado Eleição</span></h2>
+            <div>
+                <h4><span>Votos parciais</span> {{getResult()}}</h4>
+            </div>
         </div>
     </div>
 </div>
