@@ -12,6 +12,14 @@ h4 {
     font-weight: 300;
 }
 
+.alerts > div {
+    display: none !important;
+}
+
+.alerts > div:last-child {
+    display: block !important;
+}
+
 a {
     color: #533f03;
     font-weight: bold;

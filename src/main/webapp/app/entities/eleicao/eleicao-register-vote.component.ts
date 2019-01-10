@@ -19,6 +19,7 @@ export class EleicaoRegisterVoteComponent implements OnInit {
     isSaving: boolean;
     voto: IVoto;
     candidatos: ICandidato[];
+    candidatosVotos: ICandidato[];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -28,13 +29,16 @@ export class EleicaoRegisterVoteComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.candidatosVotos = [];
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ eleicao }) => {
             this.eleicao = eleicao;
         });
+
         this.activatedRoute.data.subscribe(({ voto }) => {
             this.voto = voto;
         });
+        this.voto.protocolo = this.hashGenerator();
         this.candidatoService.query().subscribe(
             (res: HttpResponse<ICandidato[]>) => {
                 this.candidatos = res.body;
@@ -43,15 +47,60 @@ export class EleicaoRegisterVoteComponent implements OnInit {
         );
     }
 
-    save(cargo) {
-        this.isSaving = true;
-        if (this.voto.id !== undefined) {
-            delete this.voto.id;
+    hashGenerator() {
+        let text = '';
+        let charset = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        for (let i = 0; i < 16; i++) {
+            text += charset.charAt(Math.floor(Math.random() * charset.length));
         }
-        this.voto.eleicao = this.eleicao;
-        this.voto.cargo = cargo;
-        this.voto.candidato = cargo.candidato;
-        this.subscribeToSaveResponse(this.votoService.create(this.voto));
+        return this.putDashEveryFourCharacters(text);
+    }
+
+    putDashEveryFourCharacters(input) {
+        let output = '';
+        let idx = 0;
+        let format = [4, 4, 4];
+        for (let i = 0; i < format.length && idx < input.length; i++) {
+            output += input.substr(idx, format[i]);
+            if (idx + format[i] < input.length) output += '-';
+            idx += format[i];
+        }
+        output += input.substr(idx);
+        return output;
+    }
+
+    setCandidatoList(candidato: ICandidato, cargoId) {
+        let duplicados = [];
+        if (candidato != null) {
+            duplicados = this.candidatosVotos.filter(candidatoVoto => candidatoVoto.cargo.id === cargoId);
+            if (duplicados.length > 0) {
+                duplicados[0] = candidato;
+            } else {
+                this.candidatosVotos.push(candidato);
+            }
+        } else {
+            if (this.candidatosVotos.length > 0) {
+                this.candidatosVotos.forEach((candidatoVoto, index) => {
+                    if (candidatoVoto.cargo.id == cargoId) {
+                        this.candidatosVotos.splice(index, 1);
+                    }
+                });
+            }
+        }
+    }
+
+    save() {
+        console.log(this.candidatosVotos);
+        this.candidatosVotos.forEach(candidatoVoto => {
+            this.isSaving = true;
+            if (this.voto.id !== undefined) {
+                delete this.voto.id;
+            }
+            this.voto.eleicao = this.eleicao;
+            this.voto.cargo = candidatoVoto.cargo;
+            this.voto.candidato = candidatoVoto;
+            this.subscribeToSaveResponse(this.votoService.create(this.voto));
+        });
     }
 
     protected subscribeToSaveResponse(result: Observable<HttpResponse<IVoto>>) {
@@ -60,6 +109,7 @@ export class EleicaoRegisterVoteComponent implements OnInit {
 
     protected onSaveSuccess() {
         this.isSaving = false;
+        this.previousState();
     }
 
     protected onSaveError() {

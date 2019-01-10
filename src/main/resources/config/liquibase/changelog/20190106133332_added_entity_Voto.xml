@@ -29,8 +29,8 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="protocolo" type="varchar(16)">
-                <constraints nullable="false" />
+            <column name="protocolo" type="varchar(19)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_voto_protocolo" />
             </column>
 
             <column name="cargo_id" type="bigint">

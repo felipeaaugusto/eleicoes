@@ -54,11 +54,12 @@
             "fieldType": "String",
             "fieldValidateRules": [
                 "required",
+                "unique",
                 "minlength",
                 "maxlength"
             ],
-            "fieldValidateRulesMinlength": "16",
-            "fieldValidateRulesMaxlength": "16"
+            "fieldValidateRulesMinlength": "19",
+            "fieldValidateRulesMaxlength": "19"
         }
     ],
     "changelogDate": "20190106133332",

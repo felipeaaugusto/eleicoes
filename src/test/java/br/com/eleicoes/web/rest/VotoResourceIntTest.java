@@ -49,8 +49,8 @@ public class VotoResourceIntTest {
     private static final String DEFAULT_NOME = "AAAAAAAAAA";
     private static final String UPDATED_NOME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PROTOCOLO = "AAAAAAAAAAAAAAAA";
-    private static final String UPDATED_PROTOCOLO = "BBBBBBBBBBBBBBBB";
+    private static final String DEFAULT_PROTOCOLO = "AAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_PROTOCOLO = "BBBBBBBBBBBBBBBBBBB";
 
     @Autowired
     private VotoRepository votoRepository;

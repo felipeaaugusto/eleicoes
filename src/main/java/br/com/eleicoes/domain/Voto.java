@@ -32,8 +32,8 @@ public class Voto implements Serializable {
     private String nome;
 
     @NotNull
-    @Size(min = 16, max = 16)
-    @Column(name = "protocolo", length = 16, nullable = false)
+    @Size(min = 19, max = 19)
+    @Column(name = "protocolo", length = 19, nullable = false, unique = true)
     private String protocolo;
 
     @ManyToOne(optional = false)

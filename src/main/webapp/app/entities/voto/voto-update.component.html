@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_protocolo">Protocolo</label>
                     <input type="text" class="form-control" name="protocolo" id="field_protocolo"
-                        [(ngModel)]="voto.protocolo" required minlength="16" maxlength="16"/>
+                        [(ngModel)]="voto.protocolo" required minlength="19" maxlength="19"/>
                     <div [hidden]="!(editForm.controls.protocolo?.dirty && editForm.controls.protocolo?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.protocolo?.errors?.required">
@@ -50,11 +50,11 @@
                         </small>
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.protocolo?.errors?.minlength">
-                        This field is required to be at least 16 characters.
+                        This field is required to be at least 19 characters.
                         </small>
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.protocolo?.errors?.maxlength">
-                        This field cannot be longer than 16 characters.
+                        This field cannot be longer than 19 characters.
                         </small>
                     </div>
                 </div>
