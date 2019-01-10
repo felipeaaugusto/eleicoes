@@ -54,7 +54,7 @@ public class VotoResource {
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate hoje = LocalDate.now();
-        if (voto.getEleicao().getDataInicio().isBefore(hoje) || voto.getEleicao().getDataFim().isAfter(hoje)) {
+        if (voto.getEleicao().getDataInicio().isAfter(hoje) || voto.getEleicao().getDataFim().isBefore(hoje)) {
             throw new BadRequestAlertException("Esta eleição não está no período disponível para votação " + voto.getEleicao().getDataInicio().format(formatter) + " - " + voto.getEleicao().getDataFim().format(formatter), ENTITY_NAME, "idexists");
         }
         List<Voto> votos = votoRepository.findAll();
