@@ -1,2 +1,2 @@
 web: java -jar target/*.war
-worker: npm start
+worker: npm run webpack:prod
