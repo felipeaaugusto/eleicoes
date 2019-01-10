@@ -1,1 +1,1 @@
-worker: ./mvnw
+web: ./mvnw
