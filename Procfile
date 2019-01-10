@@ -1,1 +1,1 @@
-worker: ./mvnw -Pprod clean package
+web: java -jar target/*.war
