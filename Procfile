@@ -1,1 +1,1 @@
-web: ./mvnw -Pprod clean package
+web: ./mvnw
