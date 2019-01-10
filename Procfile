@@ -1,1 +1,1 @@
-worker: ./mvnw
+worker: ./mvnw -Pprod clean package
