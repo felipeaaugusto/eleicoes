@@ -18,6 +18,9 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * REST controller for managing Voto.
  */
@@ -48,6 +51,11 @@ public class VotoResource {
         log.debug("REST request to save Voto : {}", voto);
         if (voto.getId() != null) {
             throw new BadRequestAlertException("A new voto cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate hoje = LocalDate.now();
+        if (voto.getEleicao().getDataInicio().isBefore(hoje) || voto.getEleicao().getDataInicio().isAfter(hoje) && voto.getEleicao().getDataFim().isAfter(hoje) || voto.getEleicao().getDataFim().isBefore(hoje)) {
+            throw new BadRequestAlertException("Esta eleição não está no período disponível para votação " + voto.getEleicao().getDataInicio().format(formatter) + " - " + voto.getEleicao().getDataFim().format(formatter), ENTITY_NAME, "idexists");
         }
         List<Voto> votos = votoRepository.findAll();
         for (Voto elem: votos){
