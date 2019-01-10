@@ -1,1 +1,1 @@
-web: ./mvnw
+worker: java -jar target/*.jar
