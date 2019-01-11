@@ -65,7 +65,11 @@
                     </div>
                     <h6><b>Cargos</b></h6>
                     <div *ngFor="let cargo of eleicao.cargo_ids; let last = last" class="form-group">
-                        <label class="form-control-label" for="field_candidato_{{cargo.id}}">{{cargo.nome}}</label>
+                        <label class="form-control-label" for="field_candidato_{{cargo.id}}">{{cargo.nome}}
+                        <div *ngIf="cargo.candidato" style="display: inline;">
+                                <img [src]="'data:' + cargo.candidato.fotoContentType + ';base64,' + cargo.candidato.foto" width="50px" style="border-style: solid; border-width: 1px;"/>
+                            </div>
+                        </label>
                         <select class="form-control" id="field_candidato_{{cargo.id}}" (change)="setCandidatoList(cargo.candidato, cargo.id)" [(ngModel)]="cargo.candidato" name="candidato_{{cargo.id}}" required>
                             <option *ngIf="!editForm.value.cargo" [ngValue]="null" selected></option>
                             <option [ngValue]="candidatoOption.cargo.id == cargo.id ? candidatoOption : candidatoOption" 

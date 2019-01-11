@@ -48,6 +48,10 @@
 
 ## Desenvolvimento
 
+-   Download repositório github
+
+    https://github.com/felipeaaugusto/eleicoes.git
+
 -   Rodar o front-end e back-end
 
     ```
@@ -71,6 +75,8 @@
     ```
 
 ## Produção
+
+-   Rodar server produção
 
     ```
     ./mvnw -Pprod clean package

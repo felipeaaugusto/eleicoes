@@ -33,6 +33,7 @@ export class EleicaoDetailComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+        this.getStatusEleicao();
     }
 
     isAuthenticated() {
@@ -49,6 +50,12 @@ export class EleicaoDetailComponent implements OnInit {
             });
         }
         return totalVotes.length;
+    }
+
+    getStatusEleicao() {
+        if (this.eleicao) {
+            debugger;
+        }
     }
 
     protected onError(errorMessage: string) {
