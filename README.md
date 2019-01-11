@@ -1,48 +1,83 @@
 # eleicoes
 
-This application was generated using JHipster 5.7.2, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v5.7.2](https://www.jhipster.tech/documentation-archive/v5.7.2).
+## Ambiente de desenvolvimento
 
-## Development
+-   Instalação java 8
 
-Before you can build this project, you must install and configure the following dependencies on your machine:
+    ```
+    $ sudo add-apt-repository ppa:webupd8team/java
+    ```
 
-1.  [Node.js][]: We use Node to run a development web server and build the project.
-    Depending on your system, you can install Node either from source or as a pre-packaged bundle.
+    ```
+    $ sudo apt-get update
+    ```
 
-After installing Node, you should be able to run the following command to install development tools.
-You will only need to run this command when dependencies change in [package.json](package.json).
+    ```
+    $ sudo apt-get install oracle-java8-installer
+    ```
 
-    npm install
+    ```
+    $ sudo apt-get install oracle-java8-set-default
+    ```
 
-We use npm scripts and [Webpack][] as our build system.
+-   Instalação do JHipster 5.7.2
 
-Run the following commands in two separate terminals to create a blissful development experience where your browser
-auto-refreshes when files change on your hard drive.
+    -   Instalação do node v8.10.0
 
+    ```
+    $ sudo apt-get install -y nodejs
+    ```
+
+    -   Instalação do npm >3.5.2
+
+    ```
+    $ sudo apt-get install npm
+    ```
+
+    -   Instalação do Yeoman
+
+    ```
+    $ sudo npm install -g yo
+    ```
+
+    -   Instalação do JHipster
+
+    ```
+    $ npm install -g generator-jhipster
+    ```
+
+## Desenvolvimento
+
+-   Rodar o front-end e back-end
+
+    ```
     ./mvnw
-    npm start
+    ```
 
-Npm is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
-specifying a newer version in [package.json](package.json). You can also run `npm update` and `npm install` to manage dependencies.
-Add the `help` flag on any command to see how you can use it. For example, `npm help update`.
+-   Rodar o front-end com live reload
 
-The `npm run` command will list all of the scripts available to run for this project.
+    ```
+    $ sudo npm start
+    ```
 
-2. Cleaning database
+-   Limpando database
 
+    ```
     ./mvnw liquibase:dropAll
+    ```
 
-    sudo ./mvnw clean
+    ```
+    $ sudo ./mvnw clean
+    ```
 
-## Building for production
+## Produção
 
-To optimize the eleicoes application for production, run:
-
+    ```
     ./mvnw -Pprod clean package
+    ```
 
-This will concatenate and minify the client CSS and JavaScript files. It will also modify `index.html` so it references these new files.
-To ensure everything worked, run:
+-   Isso irá concatenar e minificar os arquivos CSS e JavaScript do cliente. Ele também modificará o `index.html` para que ele faça referência a esses novos arquivos. Para garantir que tudo funcionou, execute:
 
+    ```
     java -jar target/*.war
-
-Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
+    ```
