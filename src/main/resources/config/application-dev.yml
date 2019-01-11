@@ -23,10 +23,9 @@ spring:
     profiles:
         active: dev
         include:
-            # - swagger
+            - swagger
             # Uncomment to activate TLS for the dev profile
             #- tls
-            no-liquibase
     devtools:
         restart:
             enabled: true
@@ -69,7 +68,7 @@ spring:
         cache: false
 
 server:
-    port: 5000
+    port: 8080
 
 # ===================================================================
 # JHipster specific properties

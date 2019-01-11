@@ -69,7 +69,6 @@ export class HomeComponent implements OnInit {
         for (let i = 0; i < data.length; i++) {
             this.eleicaos.push(data[i]);
         }
-        console.log(this.eleicaos);
     }
 
     sort() {

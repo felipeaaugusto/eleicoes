@@ -1,1 +1,1 @@
-web: ./mvnw
+web: ./mvnw package -Pprod -DskipTests

@@ -15,29 +15,29 @@
             <th></th>
             </tr>
             </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-            <tr *ngFor="let eleicao of eleicaos ;trackBy: trackId">
-                <td><a [routerLink]="['/eleicao', eleicao.id, 'view' ]">{{eleicao.id}}</a></td>
-                <td>{{eleicao.nome}}</td>
-                <td>{{eleicao.dataInicio | date:'dd/MM/yyyy'}}</td>
-                <td>{{eleicao.dataFim | date:'dd/MM/yyyy'}}</td>
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                [routerLink]="['/eleicao', eleicao.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline">Detalhes</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/eleicao', eleicao.id, 'vote' ]"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'plus'"></fa-icon>
-                            <span class="d-none d-md-inline">Votar</span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
+            <tbody>
+                <tr *ngFor="let eleicao of eleicaos ;trackBy: trackId">
+                    <td><a [routerLink]="['/eleicao', eleicao.id, 'view' ]">{{eleicao.id}}</a></td>
+                    <td>{{eleicao.nome}}</td>
+                    <td>{{eleicao.dataInicio | date:'dd/MM/yyyy'}}</td>
+                    <td>{{eleicao.dataFim | date:'dd/MM/yyyy'}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    [routerLink]="['/eleicao', eleicao.id, 'view' ]"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon [icon]="'eye'"></fa-icon>
+                                <span class="d-none d-md-inline">Detalhes</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['/eleicao', eleicao.id, 'vote' ]"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon [icon]="'plus'"></fa-icon>
+                                <span class="d-none d-md-inline">Votar</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
