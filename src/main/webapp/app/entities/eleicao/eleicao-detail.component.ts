@@ -54,7 +54,7 @@ export class EleicaoDetailComponent implements OnInit {
 
     getStatusEleicao() {
         if (this.eleicao) {
-            debugger;
+            // debugger;
         }
     }
 
