@@ -43,7 +43,7 @@
     -   Instalação do JHipster
 
     ```
-    $ npm install -g generator-jhipster
+    $ sudo npm install -g generator-jhipster
     ```
 
 ## Desenvolvimento
@@ -55,7 +55,7 @@
 -   Rodar o front-end e back-end
 
     ```
-    ./mvnw
+    $ sudo ./mvnw
     ```
 
 -   Rodar o front-end com live reload
@@ -79,7 +79,7 @@
 -   Rodar server produção
 
     ```
-    ./mvnw -Pprod clean package
+    $ sudo ./mvnw -Pprod clean package
     ```
 
 -   Isso irá concatenar e minificar os arquivos CSS e JavaScript do cliente. Ele também modificará o `index.html` para que ele faça referência a esses novos arquivos. Para garantir que tudo funcionou, execute:

@@ -53,7 +53,9 @@ export class EleicaoDetailComponent implements OnInit {
 
     getStatusEleicao() {
         if (this.eleicao) {
-            if (this.eleicao.dataInicio.isAfter(new Date()) || this.eleicao.dataFim.isBefore(new Date())) {
+            let dataAgora = new Date();
+            dataAgora.setHours(0, 0, 0, 0);
+            if (this.eleicao.dataInicio.isAfter(dataAgora) || this.eleicao.dataFim.isBefore(dataAgora)) {
                 return false;
             }
             return true;
