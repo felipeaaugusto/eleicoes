@@ -33,7 +33,6 @@ export class EleicaoDetailComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.getStatusEleicao();
     }
 
     isAuthenticated() {
@@ -54,7 +53,10 @@ export class EleicaoDetailComponent implements OnInit {
 
     getStatusEleicao() {
         if (this.eleicao) {
-            // debugger;
+            if (this.eleicao.dataInicio.isAfter(new Date()) || this.eleicao.dataFim.isBefore(new Date())) {
+                return false;
+            }
+            return true;
         }
     }
 
