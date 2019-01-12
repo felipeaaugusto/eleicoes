@@ -87,3 +87,10 @@
     ```
     java -jar target/*.war
     ```
+
+## Configuração inicial
+
+-   Usuário admin
+
+    user: admin
+    pass: admin

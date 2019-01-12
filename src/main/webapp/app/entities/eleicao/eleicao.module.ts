@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ChartModule } from 'primeng/chart';
 
 import { EleicoesSharedModule } from 'app/shared';
 import {
@@ -16,7 +17,7 @@ import {
 const ENTITY_STATES = [...eleicaoRoute, ...eleicaoPopupRoute];
 
 @NgModule({
-    imports: [EleicoesSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [EleicoesSharedModule, RouterModule.forChild(ENTITY_STATES), ChartModule],
     declarations: [
         EleicaoComponent,
         EleicaoDetailComponent,

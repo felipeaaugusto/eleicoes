@@ -2,6 +2,8 @@
     <div class="col-8">
         <div *ngIf="eleicao">
             <h2><span>Eleição</span> {{eleicao.id}}</h2>
+            <h4><span>Status: </span> {{getStatusEleicao() ? "Aberta para votação" : "Fechada para votação"}}</h4>
+            <h4><span>Total de votos {{ isFinalEleicao() ? "" : "parciais" }}</span> {{getResult()}}</h4>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
@@ -42,11 +44,13 @@
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
             </button>
             <br><br>
-            <h2><span>Resultado Eleição</span></h2>
-            <div>
-                <h4><span>Votos parciais</span> {{getResult()}}</h4>
+            <div *ngIf="isFinalEleicao()" class="col-md-8 content-section implementation">
+                <h2><span>Resultado Eleição</span></h2>
+                <div *ngFor="let cargo_id of eleicao.cargo_ids; let last = last">
+                    Votos para {{ cargo_id.nome }}
+                    <p-chart type="bar" [data]="datas[cargo_id.nome]" [options]="chartOptions"></p-chart>
+                </div>
             </div>
-            <h4><span>Status: </span> {{getStatusEleicao() ? "Aberta para votação" : "Fechada para votação"}}</h4>
         </div>
     </div>
 </div>

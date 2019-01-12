@@ -17,6 +17,7 @@ import { EleicoesHomeModule } from './home/home.module';
 import { EleicoesAccountModule } from './account/account.module';
 import { EleicoesEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
+import { EleicoesDashboardModule } from './dashboard/dashboard.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
 
@@ -34,6 +35,7 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         EleicoesCoreModule,
         EleicoesHomeModule,
         EleicoesAccountModule,
+        EleicoesDashboardModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         EleicoesEntityModule
     ],
