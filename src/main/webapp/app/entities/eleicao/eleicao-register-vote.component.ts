@@ -90,7 +90,6 @@ export class EleicaoRegisterVoteComponent implements OnInit {
     }
 
     save() {
-        console.log(this.candidatosVotos);
         this.candidatosVotos.forEach(candidatoVoto => {
             this.isSaving = true;
             if (this.voto.id !== undefined) {
